@@ -1,3 +1,4 @@
+local function CheatA()
 local plr = game:GetService("Players").LocalPlayer
 
 getgenv().Anti = true
@@ -11,18 +12,34 @@ Anti = hookmetamethod(game, "__namecall", function(self, ...)
     end)
 
 for k,v in pairs(getgc(true)) do if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and (rawget(v,"indexInstance"))[1] == "kick" then v.tvk = {"kick",function() return game.Workspace:WaitForChild("") end} end end
-
-while wait(0.1) do
-last_pick_sin_mrazy = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
-    wait(0.1) 
-    game. Players.LocalPlayer.Character.HumanoidRootPart.CFrame = last_pick_sin_mrazy
 end
 
-game.StarterGui:SetCore("SendNotification", {
-     Title = 'Anti Cheat Bypass';
-     Text = 'Activated';
-     Icon = 'rbxassetid://16505492881';
-     Duration = "5";
- })
+local function moveCharacter()
+    while wait(60) do
+        local last_pick_sin_mrazy = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+        task.wait() 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = last_pick_sin_mrazy
+    end
+end
 
-game.StarterGui:SetCore( "ChatMakeSystemMessage",  { Text = "Functional: Client Anti Kick, Adonis Bypass, Anti Afk", Color = Color3.fromRGB( 0,200,0 ), Font = Enum.Font.Arial } )
+local function showNotification()
+    game.StarterGui:SetCore("SendNotification", {
+        Title = 'Anti Cheat Bypass';
+        Text = 'Activated';
+        Icon = 'rbxassetid://16505492881';
+        Duration = "5";
+    })
+end
+
+local function showSystemMessage()
+    game.StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "Functional: Client Anti Kick, Adonis Bypass, Anti Afk";
+        Color = Color3.fromRGB(0, 200, 0);
+        Font = Enum.Font.Arial;
+    })
+end
+
+coroutine.wrap(CheatA)()
+coroutine.wrap(moveCharacter)()
+coroutine.wrap(showNotification)()
+coroutine.wrap(showSystemMessage)()
