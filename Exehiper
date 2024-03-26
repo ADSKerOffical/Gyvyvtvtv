@@ -47,8 +47,25 @@ game:GetService("ReplicatedStorage").ClientModules.EntityModules.Void:Destroy()
   end
 end
 
+  local function SlapBattlesBypass()
+if game.PlaceId == 6403373529 then
+local Namecall
+Namecall = hookmetamethod(game, '__namecall', function(self, ...)
+   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+       return
+   end
+   return Namecall(self, ...)
+end)
+end
+  end
+
 coroutine.wrap(CheatA)()
 coroutine.wrap(moveCharacter)()
 coroutine.wrap(showNotification)()
 coroutine.wrap(showSystemMessage)()
 coroutine.wrap(DoorsBypass)()
+coroutine.wrap(SlapBattlesBypass)()
