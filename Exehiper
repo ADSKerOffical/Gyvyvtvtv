@@ -3,16 +3,13 @@ local plr = game:GetService("Players").LocalPlayer
 
 getgenv().Anti = true
 
-local originalNameCall
-originalNameCall = hookmetamethod(game, "__namecall", function(self, ...)
-    if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
-        return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer")
-    end
-    if self == game:GetService("ReplicatedStorage").RemoteEvents.KickPlayer and getnamecallmethod():lower() == "fireserver" and getgenv().Anti then
-        return warn("[ANTI-KICK] Client Tried To Call KickPlayer RemoteEvent")
-    end
-    return originalNameCall(self, ...)
-end)
+local Anti
+Anti = hookmetamethod(game, "__namecall", function(self, ...)
+        if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
+            return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer")
+        end
+        return Anti(self, ...)
+    end)
 
 for k,v in pairs(getgc(true)) do if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and (rawget(v,"indexInstance"))[1] == "kick" then v.tvk = {"kick",function() return game.Workspace:WaitForChild("") end} end end
 end
