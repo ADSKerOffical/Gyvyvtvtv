@@ -31,14 +31,6 @@ local function showNotification()
     })
 end
 
-local function showSystemMessage()
-    game.StarterGui:SetCore("ChatMakeSystemMessage", {
-        Text = "Functional: Client Anti Kick, Adonis Bypass, Anti Afk";
-        Color = Color3.fromRGB(0, 200, 0);
-        Font = Enum.Font.Arial;
-    })
-end
-
 local function DoorsBypass()
   if game.PlaceId == 6516141723 then
 game:GetService("Players").LocalPlayer.PlayerGui.MainUI.ItemShop:Destroy()
@@ -66,6 +58,5 @@ end
 coroutine.wrap(CheatA)()
 coroutine.wrap(moveCharacter)()
 coroutine.wrap(showNotification)()
-coroutine.wrap(showSystemMessage)()
 coroutine.wrap(DoorsBypass)()
 coroutine.wrap(SlapBattlesBypass)()
