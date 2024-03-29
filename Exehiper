@@ -5,9 +5,33 @@ for k,v in pairs(getgc(true)) do if pcall(function() return rawget(v,"indexInsta
 end
 
 local function CheatB()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/raavenkkj/anti-kick/main/anti-kick.lua"))()
 getgenv().AntiKick = true
 getgenv().Notifications = false
+local StarterGui = game:GetService("StarterGui")
+
+local kick; kick = hookmetamethod(game, "__namecall", function(obj, ...)
+	local args = {...}
+	local method = getnamecallmethod()
+	if method == "Kick" and AntiKick then
+		if args[1] and Notifications then
+			StarterGui:SetCore("SendNotification", {
+				Title = "Raven Anti Kick";
+				Icon = "rbxassetid://14497049227";
+				Text = "A kick attempt was blocked. Reason: "..args[1]
+			})
+			print("A kick attempt was blocked. Reason: "..args[1])
+		elseif Notifications then
+			StarterGui:SetCore("SendNotification", {
+				Title = "Raven Anti Kick";
+				Icon = "rbxassetid://14497049227";
+				Text = "A kick attempt was blocked."
+			})
+			print("A kick attempt was blocked.")
+		end
+		return nil
+	end
+	return kick(obj, unpack(args))
+end)
 end
 
 local function moveCharacter()
@@ -51,9 +75,53 @@ end)
 end
   end
 
+local function ArsenalBypass
+  if game.PlaceId == 286090429 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Test2/main/Test2"))()
+  end
+end
+
+local function DaHoodBypass
+  if game.PlaceId == 2788229376 then
+local Detectors = {
+    CHECKER_1 = true,
+    TeleportDetect = true,
+    OneMoreTime = true,
+    BANREMOTE = true,
+    KICKREMOTE = true,
+    PERMAIDBAN = true,
+    BreathingHAMON = true
+}
+
+local mt = getrawmetatable(game)
+local backupnamecall = mt.__namecall
+setreadonly(mt, false)
+
+mt.__namecall = newcclosure(function(...)
+    local method = getnamecallmethod()
+    local args = {...}
+
+    if (method == "FireServer" and tostring(args[1]) == "MainEvent" and Detectors[args[2]]) then
+        return wait(9e9)
+    end
+
+    if (not checkcaller() and getfenv(1).crash ~= nil and getfenv(1).checkChild ~= nil) then
+        getcallingscript():Destroy()
+        return wait(9e9)
+    end
+
+    return backupnamecall(...)
+end)
+
+setreadonly(mt, true)
+  end
+end
+
 coroutine.wrap(CheatA)()
 coroutine.wrap(CheatB)()
 coroutine.wrap(moveCharacter)()
 coroutine.wrap(showNotification)()
 coroutine.wrap(DoorsBypass)()
 coroutine.wrap(SlapBattlesBypass)()
+coroutine.wrap(ArsenalBypass)()
+coroutine.wrap(DaHoodBypass)()
