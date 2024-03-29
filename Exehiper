@@ -1,5 +1,5 @@
 local function CheatA()
-local OldNameCall = nil OldNameCall = hookmetamethod(game,"__namecall",function(Self,...) if not checkcaller() and Self == game.Players.LocalPlayer and getnamecallmethod() == "Kick" then return end return OldNameCall(Self,...) end)
+local plr = game:GetService("Players").LocalPlayer; getgenv().Anti = true; local mt = getrawmetatable(game); local oldNamecall = mt.__namecall; setreadonly(mt, false); mt.__namecall = newcclosure(function(self, ...) if self == plr then local namecallmethod = getnamecallmethod(); if namecallmethod:lower() == "kick" and getgenv().Anti then return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer") end elseif self ~= plr then local namecallmethod = getnamecallmethod(); if namecallmethod:lower() == "kick" then return nil end end return oldNamecall(self, ...) end); setreadonly(mt, true)
 
 for k,v in pairs(getgc(true)) do if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and (rawget(v,"indexInstance"))[1] == "kick" then v.tvk = {"kick",function() return game.Workspace:WaitForChild("") end} end end
 end
