@@ -1,4 +1,6 @@
-local function CheatA()
+local allowedPlaceIds = {12582654981, 6293968958}
+if not table.find(allowedPlaceIds, game.PlaceId) then
+    local function CheatA()
 local plr = game:GetService("Players").LocalPlayer; getgenv().Anti = true; local mt = getrawmetatable(game); local oldNamecall = mt.__namecall; setreadonly(mt, false); mt.__namecall = newcclosure(function(self, ...) if self == plr then local namecallmethod = getnamecallmethod(); if namecallmethod:lower() == "kick" and getgenv().Anti then return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer") end elseif self ~= plr then local namecallmethod = getnamecallmethod(); if namecallmethod:lower() == "kick" then return nil end end return oldNamecall(self, ...) end); setreadonly(mt, true)
 
 for k,v in pairs(getgc(true)) do if pcall(function() return rawget(v,"indexInstance") end) and type(rawget(v,"indexInstance")) == "table" and (rawget(v,"indexInstance"))[1] == "kick" then v.tvk = {"kick",function() return game.Workspace:WaitForChild("") end} end end
@@ -32,6 +34,10 @@ local kick; kick = hookmetamethod(game, "__namecall", function(obj, ...)
 	end
 	return kick(obj, unpack(args))
 end)
+end
+
+local function CheatC()
+game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").Size = UDim2.new(0, 400, 0, 230); leave = game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").MessageArea.ErrorFrame.ButtonArea.LeaveButton; game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").MessageArea.MessageAreaPadding.PaddingTop = UDim.new(0,-20); game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").MessageArea.ErrorFrame.ErrorFrameLayout.Padding = UDim.new(0, 5); game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").MessageArea.ErrorFrame.ButtonArea.ButtonLayout.CellPadding = UDim2.new(0, 0, 0, 5); if not leave.Parent:FindFirstChild"Rejoin" then rejoin = leave:Clone(); rejoin.Parent = leave.Parent; rejoin.Name="Rejoin"; rejoin.ButtonText.Text = "Rejoin"; end; Players = game:GetService("Players"); TeleportService = game:GetService("TeleportService"); game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt").MessageArea.ErrorFrame.ButtonArea.LeaveButton.MouseButton1Click:Connect(function() if #Players:GetPlayers() <= 1 then game.Players.LocalPlayer:Kick("Rejoining..."); rejoin:Destroy(); wait(1); TeleportService:Teleport(game.PlaceId, Players.LocalPlayer); else TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer); end end)
 end
 
 local function moveCharacter()
@@ -121,9 +127,20 @@ end
 
 coroutine.wrap(CheatA)()
 coroutine.wrap(CheatB)()
+coroutine.wrap(CheatC)()
 coroutine.wrap(moveCharacter)()
 coroutine.wrap(showNotification)()
 coroutine.wrap(DoorsBypass)()
 coroutine.wrap(SlapBattlesBypass)()
 coroutine.wrap(ArsenalBypass)()
 coroutine.wrap(DaHoodBypass)()
+end
+
+if table.find(allowedPlaceIds, game.PlaceId) then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = 'Anti Cheat Bypass';
+        Text = 'This script does not work in this place, we block this script for security reasons';
+        Icon = 'rbxassetid://16505492881';
+        Duration = "5";
+    })
+end
