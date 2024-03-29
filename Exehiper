@@ -40,6 +40,8 @@ local function moveCharacter()
         task.wait() 
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = last_pick_sin_mrazy
     end
+
+    game:GetService("Players").PlayerAdded:Connect(function(player) player.Idled:Connect(function() print("Anti Kick successfully launched") end) end)
 end
 
 local function showNotification()
