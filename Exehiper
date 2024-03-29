@@ -75,13 +75,13 @@ end)
 end
   end
 
-local function ArsenalBypass
+local function ArsenalBypass()
   if game.PlaceId == 286090429 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Test2/main/Test2"))()
   end
 end
 
-local function DaHoodBypass
+local function DaHoodBypass()
   if game.PlaceId == 2788229376 then
 local Detectors = {
     CHECKER_1 = true,
