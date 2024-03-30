@@ -54,7 +54,7 @@ local function showNotification()
     game.StarterGui:SetCore("SendNotification", {
         Title = 'Anti Cheat Bypass';
         Text = 'Activated';
-        Icon = 'rbxassetid://16505492881';
+        Icon = 'rbxassetid://16336200609';
         Duration = "5";
     })
 end
@@ -140,7 +140,7 @@ if table.find(allowedPlaceIds, game.PlaceId) then
     game.StarterGui:SetCore("SendNotification", {
         Title = 'Anti Cheat Bypass';
         Text = 'This script does not work in this place, we block this script for security reasons';
-        Icon = 'rbxassetid://16505492881';
+        Icon = 'rbxassetid://16336200609';
         Duration = "5";
     })
 end
